@@ -11,13 +11,15 @@ import org.openqa.selenium.Keys;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 import java.util.zip.DataFormatException;
 
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 
 public class CardDeliveryTest {
 
@@ -34,7 +36,7 @@ public class CardDeliveryTest {
         elementsList.put("phone", $("[data-test-id=\"phone\"]"));
         elementsList.put("agreement", $("[data-test-id=\"agreement\"]"));
         elementsList.put("reservation", $(byText("Забронировать")));
-      //  elementsList.put("notification", $("[data-test-id=\"notification\"]"));
+        elementsList.put("notification", $("[data-test-id=\"notification\"]"));
     }
 
     @AfterEach
@@ -56,7 +58,7 @@ public class CardDeliveryTest {
         elementsList.get("phone").$(By.cssSelector("input")).setValue("+79250000000");
         elementsList.get("agreement").click();
         elementsList.get("reservation").click();
-        $("[data-test-id=\"notification\"]").waitUntil(Condition.appears, 15000);
+        elementsList.get("notification").waitUntil(Condition.appears, 15000);
     }
 
     @Test
@@ -185,7 +187,7 @@ public class CardDeliveryTest {
         elementsList.get("phone").$(By.cssSelector("input")).setValue("+79250000000");
         elementsList.get("agreement").click();
         elementsList.get("reservation").click();
-        $("[data-test-id=\"notification\"]").waitUntil(Condition.appears, 15000);
+        elementsList.get("notification").waitUntil(Condition.appears, 15000);
     }
 
     @ParameterizedTest
@@ -197,6 +199,17 @@ public class CardDeliveryTest {
         elementsList.get("agreement").click();
         elementsList.get("reservation").click();
         elementsList.get("city").$(".input__sub").shouldHave(Condition.exactText("Доставка в выбранный город недоступна"));
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/validNameData.csv", numLinesToSkip = 1)
+    void validNameTest(String city, String name, String phone){
+        elementsList.get("city").$(By.cssSelector("input")).setValue(city);
+        elementsList.get("name").$(By.cssSelector("input")).setValue(name);
+        elementsList.get("phone").$(By.cssSelector("input")).setValue(phone);
+        elementsList.get("agreement").click();
+        elementsList.get("reservation").click();
+        elementsList.get("notification").waitUntil(Condition.appears, 15000);
     }
 
     @ParameterizedTest
