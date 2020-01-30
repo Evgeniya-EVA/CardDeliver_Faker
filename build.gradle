@@ -1,4 +1,16 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "io.freefair.gradle:lombok-plugin:4.1.6"
+    }
+}
+
 plugins {
+    id "io.freefair.lombok" version "4.1.6"
     id 'java'
 }
 
@@ -22,6 +34,11 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.10'
     compile 'com.github.javafaker:javafaker:1.0.1'
 }
+
+
+apply plugin: "io.freefair.lombok"
+
+
 
 test {
     useJUnitPlatform()
