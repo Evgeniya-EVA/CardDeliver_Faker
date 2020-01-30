@@ -1,3 +1,5 @@
+import com.codeborne.selenide.Driver;
+import com.codeborne.selenide.SelenideDriver;
 import com.codeborne.selenide.SelenideElement;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,8 +16,11 @@ public class OrderDeliveryPage {
     @Getter private SelenideElement name = $("[data-test-id=\"name\"]");
     @Getter private SelenideElement phone = $("[data-test-id=\"phone\"]");
     @Getter private SelenideElement agreement = $("[data-test-id=\"agreement\"]");
-    @Getter private SelenideElement reservation = $(byText("Забронировать"));
-    @Getter private SelenideElement notification = $("[data-test-id=\"notification\"]");
+    @Getter private SelenideElement reservation = $(byText("Запланировать"));
+    @Getter private SelenideElement replan = $(byText("Перепланировать"));
+    @Getter private SelenideElement notification = $("[data-test-id=\"success-notification\"]");
+    @Getter private SelenideElement replanNotification = $("[data-test-id=\"replan-notification\"]");
+
 
     public SelenideElement getCityInput(){
         return this.city.$(By.cssSelector("input"));
@@ -35,6 +40,11 @@ public class OrderDeliveryPage {
 
     public SelenideElement getAgreementCheckBox(){
         return this.agreement.$(".checkbox__text");
+    }
+
+    public void changeDate(String date){
+        this.getDateInput().sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
+        this.getDateInput().sendKeys(date);
     }
 
     public void setElementsValues(String city, String date, String name, String phone, Boolean checkedAgreement){

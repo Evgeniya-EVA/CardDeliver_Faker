@@ -4,9 +4,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,13 +12,13 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-@EqualsAndHashCode(exclude = "faker")
+@EqualsAndHashCode
 public class RandomUser {
     @Getter(AccessLevel.PROTECTED) private String city;
     @Getter @Setter private String name;
     @Getter private String phone;
-    @Getter @Setter private String date;
-    private Faker faker = new Faker(new Locale("ru"));
+    @EqualsAndHashCode.Exclude @Getter @Setter private String date;
+    @EqualsAndHashCode.Exclude private Faker faker = new Faker(new Locale("ru"));
 
     public RandomUser() throws IOException {
         this.name = faker.name().lastName() + " " + faker.name().firstName();
@@ -37,7 +34,7 @@ public class RandomUser {
         return resultPhone.toString();
     }
 
-    private void setCustomizedDate(int days){
+    public void setCustomizedDate(int days){
         this.date = setDateFromLocalDate(LocalDate.now().plusDays(days));
     }
 
