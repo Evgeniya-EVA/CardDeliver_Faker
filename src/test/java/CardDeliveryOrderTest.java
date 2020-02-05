@@ -6,7 +6,7 @@ import org.junit.jupiter.params.provider.CsvFileSource;
 
 import static com.codeborne.selenide.Selenide.*;
 
-public class CardDeliveryOrder {
+public class CardDeliveryOrderTest {
 
     private OrderDeliveryPage pageOrder;
 

@@ -38,7 +38,7 @@ public class RandomUserData {
     }
 
     public static String getPhone(){
-        return faker.phoneNumber().phoneNumber().substring(1).replaceAll("\\D && [^+]","");
+        return faker.phoneNumber().phoneNumber().replaceAll("\\D && [^+]","");
     }
 
 
