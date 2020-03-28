@@ -12,6 +12,16 @@ buildscript {
 plugins {
     id "io.freefair.lombok" version "4.1.6"
     id 'java'
+    id "io.qameta.allure" version "2.8.1"
+}
+
+allure {
+    autoconfigure = true
+    version = '2.13.0'
+
+    useJUnit5 {
+        version = '2.13.0'
+    }
 }
 
 group 'ru.netology'
@@ -24,6 +34,7 @@ compileJava.options.encoding = "UTF-8"
 compileTestJava.options.encoding = "UTF-8"
 
 repositories {
+    jcenter()
     mavenCentral()
 }
 
@@ -33,6 +44,7 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.10'
     annotationProcessor 'org.projectlombok:lombok:1.18.10'
     compile 'com.github.javafaker:javafaker:1.0.1'
+    testImplementation 'io.qameta.allure:allure-selenide:2.13.0'
 }
 
 

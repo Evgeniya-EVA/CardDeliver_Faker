@@ -44,4 +44,3 @@ out/
 !**/src/main/**
 !**/src/test/**
 !artifacts/app-card-delivery.jar
-!artifacts/lombok-1.18.10.jar
